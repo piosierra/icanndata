@@ -2,6 +2,7 @@
 ## Script to download all the TLDs monthly reports from the ICANN site
 ##
 
+fetch <- function(date) {
 library(XML)
 library(httr)
 
@@ -30,7 +31,7 @@ lapply(list.tlds, function(x) {
     ## Parsing each tld page to get the download urls for each report
     doc = htmlParse(page)
     src = xpathSApply(doc, "//a[@href]", xmlGetAttr, "href")
-    list.csv <- src[grepl("transactions",src)]
+    list.csv <- src[grepl(paste("transactions-",date,sep=""),src)]
     
     ## Downloading the files
     lapply(list.csv, 
@@ -38,5 +39,9 @@ lapply(list.tlds, function(x) {
                                      paste("./csv/",tail(strsplit(x,"/")[[1]],n=1),sep="")))
     }
 )
+return("Done.")
+}
+
+print("Use fetch(YYYYMM) to get one month, fetch() to get all data.")
 
 

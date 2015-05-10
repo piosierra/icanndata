@@ -12,7 +12,7 @@ lapply(list.files, function(x){
     com <- dplyr::filter(current.file, tld=="COM")
     net <- dplyr::filter(current.file, tld=="NET")
     setwd("comnetfixed")
-    write.csv(com[2:length(com)],paste(strsplit(x,"\\.")[[1]][1],"new.csv",sep=""),quote=1,row.names=FALSE)
+    write.csv(com[2:length(com)],paste(strsplit(x,"\\.")[[1]][1],".csv",sep=""),quote=1,row.names=FALSE)
     write.csv(net[2:length(com)],paste("net",strsplit(x,"com")[[1]][2],sep=""),quote=1,row.names=FALSE)
     setwd("..")
 })

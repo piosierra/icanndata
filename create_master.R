@@ -5,6 +5,7 @@
 library(plyr)
 
 ## Get list of files
+setwd("csv")
 list.files <-dir()
 
 ## Read the standard headers file
@@ -12,7 +13,7 @@ headers <- scan("../headers.txt", what=character())
 
 ## Get the list of tlds
 list.tlds <- unique(sapply(list.files, function(x) {
-  strsplit(x,"-")[[1]][1]
+  strsplit(x,"-transactions")[[1]][1]
   },
   USE.NAMES=FALSE))
 
@@ -43,8 +44,8 @@ lapply(list.tlds, function(x){
                   })
               
               ## Combines all together
-              tld <- strsplit(x,"-")[[1]][1]
-              date <- strsplit(x,"-")[[1]][3]
+              tld <- strsplit(x,"-transactions")[[1]][1]
+              date <- substr(x[1],nchar(x[1])-12,nchar(x[1])-7)
               master <<- rbind.fill(master,cbind(tld, date, current.file,stringsAsFactors=FALSE))
               }
   })
@@ -54,3 +55,5 @@ lapply(list.tlds, function(x){
   write.csv(master, paste("total-",x,".csv",sep=""),quote=3,row.names=FALSE)
   setwd("../csv")
 })
+setwd("..")
+
