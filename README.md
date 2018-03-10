@@ -1,6 +1,6 @@
 # ICANN data analysis
 
- Project to merge and analyse data from the ICANN monthly reports.
+Project to merge and analyse data from the ICANN monthly reports.
 
 https://www.icann.org/resources/pages/registry-reports
 
